@@ -1,5 +1,3 @@
-from typing import List
-
 from fastapi import APIRouter, HTTPException
 from app.models import Book, books
 
@@ -14,6 +12,7 @@ router = APIRouter(
 async def get_books():
     return books
 
+
 @router.get("/{book_id}")
 async def get_book(book_id: str):
     book = next((book for book in books if book.id == book_id), None)
@@ -21,12 +20,14 @@ async def get_book(book_id: str):
         raise HTTPException(status_code=404, detail="Book not found")
     return book
 
-@router.post("/")
+
+@router.post("/", status_code=201)
 async def add_book(book: Book):
     books.append(book)
     return book
 
-@router.delete("/{book_id}")
+
+@router.delete("/{book_id}", status_code=204)
 async def delete_book(book_id: str):
     book = next((book for book in books if book.id == book_id), None)
     if book is None:

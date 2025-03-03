@@ -2,6 +2,7 @@ from pydantic import BaseModel, Field
 import uuid
 from typing import List
 
+
 class Book(BaseModel):
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
     title: str
